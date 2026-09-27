@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
+@keyframes nexa-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(66,191,165,.12), 0 0 18px rgba(66,191,165,.26); transform: scale(1); }
+  50% { box-shadow: 0 0 0 8px rgba(66,191,165,.08), 0 0 32px rgba(66,191,165,.52); transform: scale(1.035); }
+}
+
+@keyframes voice-orbit {
+  0%,100% { transform: scale(.78); opacity:.45; }
+  50% { transform: scale(1.08); opacity:1; }
+}
+
+.nexa-logo-glow { animation: nexa-glow 3.2s ease-in-out infinite; }
+.voice-orbit { animation: voice-orbit 1.2s ease-in-out infinite; }
+.voice-orbit:nth-child(2) { animation-delay: .18s; }
+.voice-orbit:nth-child(3) { animation-delay: .36s; }
+
+@keyframes voice-core {
+  0%, 100% { transform: scale(.88); filter: saturate(.9); }
+  50% { transform: scale(1.08); filter: saturate(1.25); }
+}
+.voice-core { animation: voice-core 1.35s ease-in-out infinite; }
+
+/* Legacy private-dashboard headers share this visual brand treatment. */
+main[class*="bg-[#f4f7fb]"] header span.grid {
+  background: white url("/brand/nexacare-dna.jpeg") center / contain no-repeat !important;
+  color: transparent !important;
+  box-shadow: 0 6px 18px rgba(20, 103, 139, .18);
+}
+main[class*="bg-[#f4f7fb]"] header p:first-child { font-size: 0; }
+main[class*="bg-[#f4f7fb]"] header p:first-child::after {
+  content: "NexaCare";
+  color: #10233f;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f9fc;
+  --foreground: #10233f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* In the summit kiosk, no real patient name is requested or displayed. */
+label:has(input[placeholder="e.g. Asha"]) {
+  display: none;
 }
